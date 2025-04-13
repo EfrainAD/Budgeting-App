@@ -11,7 +11,7 @@ export default function Index() {
    useEffect(() => {
       const x = getIncomes()
       setIncomes(x)
-   })
+   }, [])
 
    return (
       <SafeAreaView
