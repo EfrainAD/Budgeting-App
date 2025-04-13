@@ -1,7 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import IncomeRow from '../components/IncomeRow.jsx'
 import { calculateTotalIncome } from '../utils/utils.js'
+import {
+   addIncome,
+   deleteIncome,
+   editIncome,
+   getIncomes,
+} from '../services/storage.js'
 
 export default function Index() {
    const [incomes, setIncomes] = useState([
@@ -14,33 +20,25 @@ export default function Index() {
       { id: 7, name: '1.03', value: 1.03 },
    ])
 
-   const addIncome = () => {
-      setIncomes((prevIncomes) => [
-         ...prevIncomes,
-         {
-            id: Date.now(),
-            name: ``,
-            value: 0,
-         },
-      ])
+   useEffect(() => {
+      const x = getIncomes()
+      setIncomes(x)
+   })
+
+   const handleAddIncome = () => {
+      const updatedIncomes = addIncome()
+      setIncomes(updatedIncomes)
    }
 
-   const editIncome = (editedIncome) => {
-      setIncomes((prevIncomes) =>
-         prevIncomes.map((income) =>
-            income.id === editedIncome.id ? editedIncome : income
-         )
-      )
+   const handleEditIncome = (editedIncome) => {
+      const updatedIncomes = editIncome(editedIncome)
+      setIncomes(updatedIncomes)
    }
 
-   const deleteIncome = (id) => {
-      setIncomes((prevIncomes) =>
-         prevIncomes.filter((income) => income.id !== id)
-      )
+   const handleDeleteIncome = (id) => {
+      const updatedIncomes = deleteIncome(id)
+      setIncomes(updatedIncomes)
    }
-
-   const calculateTotalIncome = (incomes) =>
-      incomes.reduce((total, income) => (total += income.value), 0)
 
    return (
       <SafeAreaView
@@ -52,7 +50,7 @@ export default function Index() {
       >
          <View style={{ flexDirection: 'row', margin: 10 }}>
             <Text>Total: ${calculateTotalIncome(incomes).toFixed(2)}</Text>
-            <TouchableOpacity onPress={addIncome}>
+            <TouchableOpacity onPress={handleAddIncome}>
                <Text style={{ paddingLeft: 50 }}>+</Text>
             </TouchableOpacity>
          </View>
@@ -60,8 +58,8 @@ export default function Index() {
             <IncomeRow
                key={index}
                income={income}
-               changeIncome={editIncome}
-               removeIncome={deleteIncome}
+               changeIncome={handleEditIncome}
+               removeIncome={handleDeleteIncome}
             />
          ))}
       </SafeAreaView>
