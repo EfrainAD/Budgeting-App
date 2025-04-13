@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import IncomeRow from '../components/IncomeRow.jsx'
+import { calculateTotalIncome } from '../utils/utils.js'
 
 export default function Index() {
    const [incomes, setIncomes] = useState([
