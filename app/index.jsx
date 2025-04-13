@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native'
+import IncomeSummary from '../components/IncomeSummary.jsx'
+
 import IncomeSection from '../components/IncomeSection.jsx'
 import { getIncomes } from '../services/storage.js'
 
@@ -19,6 +21,7 @@ export default function Index() {
             alignItems: 'center',
          }}
       >
+         <IncomeSummary incomes={incomes} />
          <IncomeSection incomes={incomes} setIncomes={setIncomes} />
       </SafeAreaView>
    )

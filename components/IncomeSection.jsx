@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native'
+
 import IncomeRow from './IncomeRow'
-import { calculateTotalIncome } from '../utils/utils.js'
 import { addIncome, deleteIncome, editIncome } from '../services/storage.js'
 
 const IncomeSection = ({ incomes, setIncomes }) => {
@@ -22,7 +22,7 @@ const IncomeSection = ({ incomes, setIncomes }) => {
    return (
       <>
          <View style={{ flexDirection: 'row', margin: 10 }}>
-            <Text>Total: ${calculateTotalIncome(incomes).toFixed(2)}</Text>
+            <Text>Income</Text>
             <TouchableOpacity onPress={handleAddIncome}>
                <Text style={{ paddingLeft: 50 }}>+</Text>
             </TouchableOpacity>
