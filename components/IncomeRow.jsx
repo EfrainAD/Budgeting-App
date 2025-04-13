@@ -1,12 +1,8 @@
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { formatMoney } from '../utils/utils.js'
 
 const IncomeRow = ({ income, changeIncome, removeIncome }) => {
    const { name, value } = income
-
-   const formatMoney = (value) => {
-      const digitsOnly = value.replace(/\D/g, '')
-      return Number(digitsOnly / 100)
-   }
 
    const handleChangeInput = (field, newValue) => {
       let updatedValue = newValue
