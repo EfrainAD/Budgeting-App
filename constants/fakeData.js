@@ -7,3 +7,14 @@ export const fakeIncomes = [
    { id: 6, name: '1.0', value: 1.0 },
    { id: 7, name: '1.03', value: 1.03 },
 ]
+
+export const fakeSections = [
+   { id: 2, title: 'Housing' },
+   { id: 3, title: 'Transportation' },
+   { id: 1, title: 'Life Style' },
+]
+
+export const fakeSpending = [
+   { id: 1, section_id: 2, name: 'Rent', value: 1000 },
+   { id: 1, section_id: 3, name: 'Bus Pass', value: 20 },
+]
