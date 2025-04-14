@@ -1,16 +1,25 @@
 import { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native'
 import IncomeSummary from '../components/IncomeSummary.jsx'
-
 import IncomeSection from '../components/IncomeSection.jsx'
-import { getIncomes } from '../services/storage.js'
+import SpendingSection from '../components/SpendingSection.jsx'
+
+import { getIncomes, getSections, getSpendings } from '../services/storage.js'
 
 export default function Index() {
    const [incomes, setIncomes] = useState([])
+   const [sections, setSections] = useState([])
+   const [spendings, setSpendings] = useState([])
 
    useEffect(() => {
-      const x = getIncomes()
-      setIncomes(x)
+      const fetchedIncomes = getIncomes()
+      setIncomes(fetchedIncomes)
+
+      const fetchedSections = getSections()
+      setSections(fetchedSections)
+
+      const fetchedSpendings = getSpendings()
+      setSpendings(fetchedSpendings)
    }, [])
 
    return (
@@ -23,6 +32,19 @@ export default function Index() {
       >
          <IncomeSummary incomes={incomes} />
          <IncomeSection incomes={incomes} setIncomes={setIncomes} />
+         {sections.map((section, index) => {
+            return (
+               <SpendingSection
+                  key={index}
+                  section={section}
+                  setSections={setSections}
+                  spendings={spendings.filter(
+                     (spend) => spend.section_id === section.id
+                  )}
+                  setSpendings={setSpendings}
+               />
+            )
+         })}
       </SafeAreaView>
    )
 }
